@@ -1,5 +1,6 @@
 package com.example.geoquiz
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -16,7 +17,7 @@ import com.google.android.material.snackbar.Snackbar
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private val quizViewModel: QuizViewModel by viewModels()
-
+    
     private val TAG = "MainActivity"
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,6 +42,14 @@ class MainActivity : AppCompatActivity() {
         binding.prevButton.setOnClickListener { view: View ->
             quizViewModel.moveToPrev()
             updateQuestion()
+        }
+
+        binding.cheatButton.setOnClickListener { view: View ->
+            //val intent = Intent(this, CheatActivity::class.java)
+            //startActivity(intent)
+            val answerIsTrue = quizViewModel.currentQuestionAnswer
+            val intent = CheatActivity.newIntent(this@MainActivity, answerIsTrue)
+            startActivity(intent)
         }
 
         updateQuestion()
