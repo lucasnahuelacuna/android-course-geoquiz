@@ -1,5 +1,6 @@
 package com.example.geoquiz
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -9,7 +10,8 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.geoquiz.databinding.ActivityCheatBinding
 
-private const val EXTRA_ANSWER_IS_TRUE = "com.example.geoquiz.answer_is_true";
+private const val EXTRA_ANSWER_IS_TRUE = "com.example.geoquiz.answer_is_true"
+private const val EXTRA_ANSWER_SHOWN = "com.example.geoquiz.answer_shown"
 
 class CheatActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCheatBinding
@@ -28,7 +30,15 @@ class CheatActivity : AppCompatActivity() {
                 else -> R.string.false_button
             }
             binding.answerTextView.setText(answerText)
+            setAnswerShownResult()
         }
+    }
+
+    private fun setAnswerShownResult() {
+        val data = Intent().apply {
+            putExtra(EXTRA_ANSWER_SHOWN, true)
+        }
+        setResult(Activity.RESULT_OK, data)
     }
 
     companion object {
